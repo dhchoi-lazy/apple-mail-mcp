@@ -682,7 +682,7 @@ class PasteFocusHardeningTests(unittest.TestCase):
         'repeat until (frontmost of process "Mail") '
         "or (focusWaited is greater than or equal to 40)"
     )
-    PASTE = 'keystroke "v" using command down'
+    PASTE = 'key code 9 using command down'
 
     def _render_reply(self, **overrides):
         kwargs = dict(
@@ -873,7 +873,8 @@ class HtmlBodyNoDuplicatePasteTests(unittest.TestCase):
         # Exactly one Cmd+V paste of the body — never the plain text as a
         # second visible paste alongside the HTML.
         script = self._render_reply()
-        self.assertEqual(script.count('keystroke "v" using command down'), 1)
+        self.assertEqual(script.count('key code 9 using command down'), 1)
+        self.assertNotIn('keystroke "v"', script)
 
     def test_reply_plain_body_not_injected_as_content(self):
         # The plain reply_body must not be set as the message `content`

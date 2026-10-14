@@ -406,13 +406,13 @@ def _send_html_email(
     if mode == "send":
         post_paste_script = """
             -- Send via keyboard shortcut
-            keystroke "d" using {command down, shift down}
+            key code 2 using {command down, shift down} -- Cmd+Shift+D
         """
         success_text = "Email sent successfully (HTML)"
     elif mode == "draft":
         post_paste_script = """
             -- Save as draft: Cmd+S then close
-            keystroke "s" using command down
+            key code 1 using command down -- Cmd+S
             delay 0.5
         """
         success_text = "Email saved as draft (HTML)"
@@ -502,9 +502,9 @@ tell application "System Events"
         delay 0.3
 
         -- Select all in body and paste HTML
-        keystroke "a" using command down
+        key code 0 using command down -- Cmd+A
         delay 0.2
-        keystroke "v" using command down
+        key code 9 using command down -- Cmd+V by key code: letter keystrokes misfire under non-Latin input sources (e.g. Korean)
         delay 0.5
     end tell
 end tell
@@ -882,7 +882,7 @@ tell application "Mail"
                 -- settle delay so the compose window's body holds keyboard focus
                 delay 0.8
                 tell process "Mail"
-                    keystroke "v" using command down
+                    key code 9 using command down -- Cmd+V by key code: letter keystrokes misfire under non-Latin input sources (e.g. Korean)
                 end tell
             end tell
             delay 0.5
@@ -1269,7 +1269,7 @@ def forward_email(
 
                 tell application "System Events"
                     tell process "Mail"
-                        keystroke "v" using command down
+                        key code 9 using command down -- Cmd+V by key code: letter keystrokes misfire under non-Latin input sources (e.g. Korean)
                     end tell
                 end tell
                 delay 0.5
